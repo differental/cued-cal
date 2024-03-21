@@ -41,7 +41,7 @@ function App() {
   };
 
   const [formData, setFormData] = useState({
-    generateOption: 'lecture',
+    generateOption: '',
     labGroup: '',
     fileMode: '1'
   });
@@ -63,15 +63,17 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     let fileLink = '';
+
+    let a = parseInt(formData.labGroup, 10)
     // Assuming you have a known link to the file
     if (formData.generateOption === 'lecture') {
-      fileLink = `./ical/lecture.ics`;
+      fileLink = `/ical/lecture.ics`;
     }
     else {
-      fileLink = `./ical/${encodeURIComponent(formData.generateOption)}_${encodeURIComponent(formData.labGroup)}.ics`;
+      fileLink = `/ical/${encodeURIComponent(formData.generateOption)}_${encodeURIComponent(a)}.ics`;
     }
-    const randomNumber = getRandomNumber(1, 3);
-    console.log(randomNumber)
+    const randomNumber = getRandomNumber(1, 4);
+    //console.log(randomNumber)
     if (randomNumber >= 2) {
       Success();
       setTimeout(() => {
