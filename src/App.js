@@ -15,16 +15,24 @@ function getRandomNumber(min, max) {
 
 function App() {
 
-  const Fail = () => {
+  const Warn = (fileLink) => {
     withReactContent(Swal).fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Something went wrong!",
-      footer: 'You\'re just unlucky, probably. Maybe try again later.',
-      timer: 3000,
-      showConfirmButton: false,
+      icon: "warning",
+      title: "Non-Final Calendar",
+      text: "The department might change things around before term starts!",
+      footer: 'Feel free to star this page and check back later!',
+      showConfirmButton: true,
+      showDenyButton: true,
       showCloseButton: false,
-      timerProgressBar: true
+      confirmButtonText: 'Yes, download now!',
+      denyButtonText: 'No, later'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Success();
+        setTimeout(() => {
+          window.location.href = fileLink;
+        }, 3000);
+      }
     });
   };
 
@@ -72,22 +80,19 @@ function App() {
     else {
       fileLink = `/ical/${encodeURIComponent(formData.generateOption)}_${encodeURIComponent(a)}.ics`;
     }
-    const randomNumber = getRandomNumber(1, 4);
+    //const randomNumber = getRandomNumber(1, 4);
     //console.log(randomNumber)
-    if (randomNumber >= 2) {
-      Success();
-      setTimeout(() => {
-        // Redirect the user to the file link
-        window.location.href = fileLink;
-      }, 3000); // 3000 milliseconds = 3 seconds
-    }
-    else {
-      Fail();
-      setTimeout(() => {
-        // Redirect the user to the file link
-        window.location.href = `#`;
-      }, 3000); // 3000 milliseconds = 3 seconds
-    }
+    //if (randomNumber >= 2) {
+    Warn(fileLink);
+    //Success();
+    
+    //}
+    //else {
+    //  Fail();
+    //  setTimeout(() => {
+    //    window.location.href = `#`;
+    //  }, 3000);
+   // }
   };
 
   return (
