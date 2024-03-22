@@ -15,37 +15,20 @@ function getRandomNumber(min, max) {
 
 function App() {
 
-  const Warn = (fileLink) => {
-    withReactContent(Swal).fire({
-      icon: "warning",
-      title: "Non-Final Calendar",
-      text: "The department might change things around before term starts!",
-      footer: 'Feel free to star this page and check back later!',
-      showConfirmButton: true,
-      showDenyButton: true,
-      showCloseButton: false,
-      confirmButtonText: 'Yes, download now!',
-      denyButtonText: 'No, later'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Success();
-        setTimeout(() => {
-          window.location.href = fileLink;
-        }, 3000);
-      }
-    });
-  };
-
-  const Success = () => {
+  const downloadFile = (fileLink) => {
     withReactContent(Swal).fire({
       icon: "success",
       title: "Yessir",
       text: "Download Successful!",
-      timer: 3000,
+      timer: 1500,
+      footer: '<a color="#FF0000">Timings are not final and subject to change before term.</a>',
       showConfirmButton: false,
       showCloseButton: false,
       timerProgressBar: true
     });
+    setTimeout(() => {
+      window.location.href = fileLink;
+    }, 1500);
   };
 
   const [formData, setFormData] = useState({
@@ -83,7 +66,7 @@ function App() {
     //const randomNumber = getRandomNumber(1, 4);
     //console.log(randomNumber)
     //if (randomNumber >= 2) {
-    Warn(fileLink);
+    downloadFile(fileLink);
     //Success();
     
     //}
