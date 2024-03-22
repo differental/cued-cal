@@ -20,15 +20,16 @@ function App() {
       icon: "success",
       title: "Yessir",
       text: "Download Successful!",
-      timer: 1500,
-      footer: '<a color="#FF0000">Timings are not final and subject to change before term.</a>',
+      timer: 3000,
+      footer: '<a style="color: #FF0000">Timings are not final and subject to change before term.</a>',
       showConfirmButton: false,
       showCloseButton: false,
       timerProgressBar: true
-    });
-    setTimeout(() => {
-      window.location.href = fileLink;
-    }, 1500);
+    }).then(
+      setTimeout(() => {
+        window.location.href = fileLink;
+      }, 3000)
+    );
   };
 
   const [formData, setFormData] = useState({
@@ -153,7 +154,6 @@ function App() {
                 checked={formData.fileMode === '0'}
                 onChange={handleInputChange}
                 required
-                disabled
               />
               Minimum
             </label>
