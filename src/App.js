@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -10,6 +10,10 @@ import withReactContent from 'sweetalert2-react-content'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+
+  useEffect(() => {
+    document.title = 'CUED Calendar Assistant';
+  }, []);
 
   const downloadFile = (fileLink) => {
     withReactContent(Swal).fire({
