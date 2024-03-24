@@ -9,10 +9,6 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
 function App() {
 
   const downloadFile = (fileLink) => {
@@ -32,7 +28,26 @@ function App() {
     );
   };
 
+  const disclaimer = () => {
+    withReactContent(Swal).fire({
+      icon: "warning",
+      title: "Disclaimer",
+      text: 'These calendars are NOT definitive . They are provided for convenience only. It is your responsibility to make sure you know when all your lectures are by checking the timetable published by the teaching office, and the online module details.',
+      showConfirmButton: true,
+      confirmButtonText: 'Official Calendar Page',
+      showCloseButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setTimeout(() => {
+          window.location.href = "http://td.eng.cam.ac.uk/tod/public/list_icals.php";
+        }, 0)
+      }
+    });
+  };
+
   const [formData, setFormData] = useState({
+    year: 'ia',
+    term: 'east',
     generateOption: '',
     labGroup: '',
     fileMode: '1'
@@ -82,8 +97,108 @@ function App() {
   return (
     <Container className="App">
       <Row className="justify-content-md-center"><Col md="auto">
-      <h1>IA Easter</h1>
+      <h1>CUED Calendar Assistant</h1>
+      <div class="alert alert-warning" role="alert">
+        It is your responsibility to check the timetable published by the teaching office.<br/>
+        <a href="#" onClick={disclaimer}>Learn More</a>
+      </div>
       <Form onSubmit={handleSubmit}>
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm={2}>Year</Form.Label>
+          <Col sm={10}>
+            <label className={formData.year === 'ia'?"btn btn-primary":"btn btn-default"}>
+              <Form.Check
+                inline
+                type="radio"
+                name="year"
+                value="ia"
+                checked={formData.year === 'ia'}
+                onChange={handleInputChange}
+                required
+              />
+              Part IA
+            </label>
+            <label className={formData.year === 'ib'?"btn btn-primary":"btn btn-default"}>
+              <Form.Check
+                inline
+                type="radio"
+                name="year"
+                value="ib"
+                checked={formData.year === 'ib'}
+                onChange={handleInputChange}
+                disabled
+              />
+              Part IB (WIP)
+            </label>
+            <label className={formData.year === 'iia'?"btn btn-primary":"btn btn-default"}>
+              <Form.Check
+                inline
+                type="radio"
+                name="year"
+                value="iia"
+                checked={formData.year === 'iia'}
+                onChange={handleInputChange}
+                disabled
+              />
+              Part IIA (WIP)
+            </label>
+            <label className={formData.year === 'iib'?"btn btn-primary":"btn btn-default"}>
+              <Form.Check
+                inline
+                type="radio"
+                name="year"
+                value="iib"
+                checked={formData.year === 'iib'}
+                onChange={handleInputChange}
+                disabled
+              />
+              Part IIB (WIP)
+            </label>
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm={2}>Term</Form.Label>
+          <Col sm={10}>
+            <label className={formData.term === 'mich'?"btn btn-primary":"btn btn-default"}>
+              <Form.Check
+                inline
+                type="radio"
+                name="term"
+                value="mich"
+                checked={formData.term === 'mich'}
+                onChange={handleInputChange}
+                required
+                disabled
+              />
+              Michaelmas (N/A)
+            </label>
+            <label className={formData.term === 'lent'?"btn btn-primary":"btn btn-default"}>
+              <Form.Check
+                inline
+                type="radio"
+                name="term"
+                value="lent"
+                checked={formData.term === 'lent'}
+                onChange={handleInputChange}
+                required
+                disabled
+              />
+              Lent (N/A)
+            </label>
+            <label className={formData.term === 'east'?"btn btn-primary":"btn btn-default"}>
+              <Form.Check
+                inline
+                type="radio"
+                name="term"
+                value="east"
+                checked={formData.term === 'east'}
+                onChange={handleInputChange}
+                required
+              />
+              Easter
+            </label>
+          </Col>
+        </Form.Group>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column sm={2}>Calendar</Form.Label>
           <Col sm={10}>
@@ -189,6 +304,9 @@ function App() {
           </Col>
         </Form.Group>
       </Form>
+      <div class="alert alert-info" role="alert">
+        Latest Update: 24/03/2024 17:47
+      </div>
       </Col></Row>
     </Container>
   );
