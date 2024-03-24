@@ -19,7 +19,7 @@ function App() {
     withReactContent(Swal).fire({
       icon: "error",
       title: "Form Incomplete",
-      text: "I'm here to protect you from subscribing to the unknown.",
+      text: "I'm here to protect you from executing the unknown.",
       timer: 3000,
       showConfirmButton: false,
       showCloseButton: false,
@@ -83,10 +83,10 @@ function App() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleDownload = (event) => {
     event.preventDefault();
 
-    if (formData.generateOption === '' || formData.labGroup === '' || parseInt(formData.labGroup, 10) >= 180 || parseInt(formData.labGroup, 10) <= 0) {
+    if (formData.generateOption === '' || (formData.generateOption !== 'lecture' &&  formData.labGroup === '') || parseInt(formData.labGroup, 10) >= 180 || parseInt(formData.labGroup, 10) <= 0) {
       pleaseFillForm();
       return;
     }
@@ -119,7 +119,7 @@ function App() {
   const handleSubscribe = (event) => {
     event.preventDefault();
 
-    if (formData.generateOption === '' || formData.labGroup === '' || parseInt(formData.labGroup, 10) >= 180 || parseInt(formData.labGroup, 10) <= 0) {
+    if (formData.generateOption === '' || (formData.generateOption !== 'lecture' &&  formData.labGroup === '') || parseInt(formData.labGroup, 10) >= 180 || parseInt(formData.labGroup, 10) <= 0) {
       pleaseFillForm();
       return;
     }
@@ -345,7 +345,7 @@ function App() {
         </Form.Group>
         <Form.Group as={Row} className="mb-3">
           <Col sm={{ span: 5, offset: 1 }}>
-            <Button type="submit" onclick={handleSubmit}>Download ics</Button>
+            <Button type="submit" onClick={handleDownload}>Download ics</Button>
           </Col>
           <Col sm={{ span: 5, offset: 1 }}>
             <Button type="submit" onClick={handleSubscribe}>Subscribe to webcal</Button>
