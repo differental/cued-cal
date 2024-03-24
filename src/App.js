@@ -98,6 +98,23 @@ function App() {
    // }
   };
 
+  const handleSubscribe = (event) => {
+    event.preventDefault();
+    let fileLink = '';
+
+    let a = parseInt(formData.labGroup, 10)
+    // Assuming you have a known link to the file
+    if (formData.generateOption === 'lecture') {
+      fileLink = `webcal://edcal.brianc.xyz/ical/lecture.ics`;
+    }
+    else {
+      fileLink = `webcal://edcal.brianc.xyz/ical/${encodeURIComponent(formData.generateOption)}_${encodeURIComponent(a)}.ics`;
+    }
+    setTimeout(() => {
+      window.location.href = fileLink;
+    }, 0)
+  };
+
   return (
     <Container className="App">
       <Row className="justify-content-md-center"><Col md="auto">
@@ -106,7 +123,7 @@ function App() {
         It is your responsibility to check the timetable published by the teaching office.<br/>
         <a href="#" onClick={disclaimer}>Learn More</a>
       </div>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column sm={2}>Year</Form.Label>
           <Col sm={10}>
@@ -304,7 +321,8 @@ function App() {
         </Form.Group>
         <Form.Group as={Row} className="mb-3">
           <Col sm={{ span: 10, offset: 2 }}>
-            <Button type="submit">Download ics</Button>
+            <Button type="submit" onclick={handleSubmit}>Download ics</Button>
+            <Button type="submit" onClick={handleSubscribe}>Subscribe to webcal</Button>
           </Col>
         </Form.Group>
       </Form>
