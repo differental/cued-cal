@@ -263,7 +263,7 @@ function App() {
                 required
                 disabled={formData.year === '2' && formData.term === 'easter'}
               />
-              Combined
+              Both
             </label>
             <label className={formData.generateOption === 'lecture'?"btn btn-primary":"btn btn-default"}>
               <Form.Check
@@ -275,7 +275,7 @@ function App() {
                 onChange={handleGenerateOptionChange}
                 required
               />
-              Lectures Only
+              Lectures
             </label>
             <label className={formData.generateOption === 'lab'?"btn btn-primary":"btn btn-default"}>
               <Form.Check
@@ -288,7 +288,7 @@ function App() {
                 required
                 disabled={formData.year === '2' && formData.term === 'easter'}
               />
-              Labs Only
+              Labs
             </label>
           </Col>
         </Form.Group>
