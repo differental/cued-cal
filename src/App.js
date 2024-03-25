@@ -191,7 +191,7 @@ function App() {
                 onChange={handleInputChange}
                 disabled
               />
-              IIA (WIP)
+              IIA
             </label>
             <label className={formData.year === '4'?"btn btn-primary":"btn btn-default"}>
               <Form.Check
@@ -203,7 +203,7 @@ function App() {
                 onChange={handleInputChange}
                 disabled
               />
-              IIB (WIP)
+              IIB
             </label>
           </Col>
         </Form.Group>
@@ -243,7 +243,7 @@ function App() {
                 checked={formData.term === 'easter'}
                 onChange={handleInputChange}
                 required
-                disabled={formData.year === '2' && formData.generateOption !== 'lecture'}
+                disabled={formData.year === '2' && (formData.generateOption === 'lab' || formData.generateOption === 'combined')}
               />
               Easter
             </label>
