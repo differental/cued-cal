@@ -33,7 +33,7 @@ function App() {
       title: "Yessir",
       text: "Download Successful!",
       timer: 3000,
-      footer: '<a style="color: #FF0000">Timings are not final and subject to change before term.</a>',
+      footer: '<a style="color: #FF0000">Timings are not final and subject to change before term.</a> <br/> <a style="color: #FF0000">Subscribe to webcal to keep them updated.</a>',
       showConfirmButton: false,
       showCloseButton: false,
       timerProgressBar: true
@@ -62,11 +62,11 @@ function App() {
   };
 
   const [formData, setFormData] = useState({
-    year: 'ia',
-    term: 'east',
+    year: '1',
+    term: 'easter',
     generateOption: '',
     labGroup: '',
-    fileMode: '1'
+    fileMode: '2'
   });
 
   const handleInputChange = (event) => {
@@ -79,14 +79,15 @@ function App() {
     setFormData({
       ...formData,
       generateOption: value,
-      labGroup: value === 'lecture' ? '' : formData.labGroup // Reset lab group when "Lectures Only" is chosen
+      labGroup: value === 'lecture' ? '' : formData.labGroup, // Reset lab group when "Lectures Only" is chosen
+      fileMode: value === 'lab' ? '' : formData.fileMode
     });
   };
 
   const handleDownload = (event) => {
     event.preventDefault();
 
-    if (formData.generateOption === '' || (formData.generateOption !== 'lecture' &&  formData.labGroup === '') || parseInt(formData.labGroup, 10) >= 180 || parseInt(formData.labGroup, 10) <= 0) {
+    if (formData.generateOption === '' || (formData.generateOption !== 'lecture' && formData.labGroup === '') || (formData.generateOption !== 'lab' && formData.fileMode === '') || parseInt(formData.labGroup, 10) >= 180 || parseInt(formData.labGroup, 10) <= 0) {
       pleaseFillForm();
       return;
     }
@@ -96,10 +97,13 @@ function App() {
     let a = parseInt(formData.labGroup, 10)
     // Assuming you have a known link to the file
     if (formData.generateOption === 'lecture') {
-      fileLink = `/ical/lecture.ics`;
+      fileLink = `/ical_new/${encodeURIComponent(formData.year)}_${encodeURIComponent(formData.term)}_lecture_${encodeURIComponent(formData.fileMode)}.ics`;
     }
-    else {
-      fileLink = `/ical/${encodeURIComponent(formData.generateOption)}_${encodeURIComponent(a)}.ics`;
+    else if (formData.generateOption === 'combined') {
+      fileLink = `/ical_new/${encodeURIComponent(formData.year)}_${encodeURIComponent(formData.term)}_${encodeURIComponent(a)}_combined_${encodeURIComponent(formData.fileMode)}.ics`;
+    }
+    else { //lab
+      fileLink = `/ical_new/${encodeURIComponent(formData.year)}_${encodeURIComponent(formData.term)}_${encodeURIComponent(a)}_lab.ics`;
     }
     //const randomNumber = getRandomNumber(1, 4);
     //console.log(randomNumber)
@@ -119,7 +123,7 @@ function App() {
   const handleSubscribe = (event) => {
     event.preventDefault();
 
-    if (formData.generateOption === '' || (formData.generateOption !== 'lecture' &&  formData.labGroup === '') || parseInt(formData.labGroup, 10) >= 180 || parseInt(formData.labGroup, 10) <= 0) {
+    if (formData.generateOption === '' || (formData.generateOption !== 'lecture' &&  formData.labGroup === '') || (formData.generateOption !== 'lab' && formData.fileMode === '') || parseInt(formData.labGroup, 10) >= 180 || parseInt(formData.labGroup, 10) <= 0) {
       pleaseFillForm();
       return;
     }
@@ -129,10 +133,13 @@ function App() {
     let a = parseInt(formData.labGroup, 10)
     // Assuming you have a known link to the file
     if (formData.generateOption === 'lecture') {
-      fileLink = `webcal://edcal.brianc.xyz/ical/lecture.ics`;
+      fileLink = `webcal://edcal.brianc.xyz/ical_new/${encodeURIComponent(formData.year)}_${encodeURIComponent(formData.term)}_lecture_${encodeURIComponent(formData.fileMode)}.ics`;
     }
-    else {
-      fileLink = `webcal://edcal.brianc.xyz/ical/${encodeURIComponent(formData.generateOption)}_${encodeURIComponent(a)}.ics`;
+    else if (formData.generateOption === 'combined') {
+      fileLink = `webcal://edcal.brianc.xyz/ical_new/${encodeURIComponent(formData.year)}_${encodeURIComponent(formData.term)}_${encodeURIComponent(a)}_combined_${encodeURIComponent(formData.fileMode)}.ics`;
+    }
+    else { //lab
+      fileLink = `webcal://edcal.brianc.xyz/ical_new/${encodeURIComponent(formData.year)}_${encodeURIComponent(formData.term)}_${encodeURIComponent(a)}_lab.ics`;
     }
     setTimeout(() => {
       window.location.href = fileLink;
@@ -151,53 +158,52 @@ function App() {
         <Form.Group as={Row} className="mb-3">
           <Form.Label column sm={2}>Year</Form.Label>
           <Col sm={10}>
-            <label className={formData.year === 'ia'?"btn btn-primary":"btn btn-default"}>
+            <label className={formData.year === '1'?"btn btn-primary":"btn btn-default"}>
               <Form.Check
                 inline
                 type="radio"
                 name="year"
-                value="ia"
-                checked={formData.year === 'ia'}
+                value="1"
+                checked={formData.year === '1'}
                 onChange={handleInputChange}
                 required
               />
-              Part IA
+              IA
             </label>
-            <label className={formData.year === 'ib'?"btn btn-primary":"btn btn-default"}>
+            <label className={formData.year === '2'?"btn btn-primary":"btn btn-default"}>
               <Form.Check
                 inline
                 type="radio"
                 name="year"
-                value="ib"
-                checked={formData.year === 'ib'}
+                value="2"
+                checked={formData.year === '2'}
                 onChange={handleInputChange}
-                disabled
               />
-              Part IB (WIP)
+              IB
             </label>
-            <label className={formData.year === 'iia'?"btn btn-primary":"btn btn-default"}>
+            <label className={formData.year === '3'?"btn btn-primary":"btn btn-default"}>
               <Form.Check
                 inline
                 type="radio"
                 name="year"
-                value="iia"
-                checked={formData.year === 'iia'}
+                value="3"
+                checked={formData.year === '3'}
                 onChange={handleInputChange}
                 disabled
               />
-              Part IIA (WIP)
+              IIA (WIP)
             </label>
-            <label className={formData.year === 'iib'?"btn btn-primary":"btn btn-default"}>
+            <label className={formData.year === '4'?"btn btn-primary":"btn btn-default"}>
               <Form.Check
                 inline
                 type="radio"
                 name="year"
-                value="iib"
-                checked={formData.year === 'iib'}
+                value="4"
+                checked={formData.year === '4'}
                 onChange={handleInputChange}
                 disabled
               />
-              Part IIB (WIP)
+              IIB (WIP)
             </label>
           </Col>
         </Form.Group>
@@ -213,9 +219,8 @@ function App() {
                 checked={formData.term === 'mich'}
                 onChange={handleInputChange}
                 required
-                disabled
               />
-              Michaelmas (N/A)
+              Michaelmas
             </label>
             <label className={formData.term === 'lent'?"btn btn-primary":"btn btn-default"}>
               <Form.Check
@@ -226,19 +231,19 @@ function App() {
                 checked={formData.term === 'lent'}
                 onChange={handleInputChange}
                 required
-                disabled
               />
-              Lent (N/A)
+              Lent
             </label>
-            <label className={formData.term === 'east'?"btn btn-primary":"btn btn-default"}>
+            <label className={formData.term === 'easter'?"btn btn-primary":"btn btn-default"}>
               <Form.Check
                 inline
                 type="radio"
                 name="term"
-                value="east"
-                checked={formData.term === 'east'}
+                value="easter"
+                checked={formData.term === 'easter'}
                 onChange={handleInputChange}
                 required
+                disabled={formData.year === '2' && formData.generateOption === 'lab'}
               />
               Easter
             </label>
@@ -280,6 +285,7 @@ function App() {
                 checked={formData.generateOption === 'lab'}
                 onChange={handleGenerateOptionChange}
                 required
+                disabled={formData.year === '2' && formData.term === 'easter'}
               />
               Labs Only
             </label>
@@ -302,47 +308,49 @@ function App() {
             </Col>
           </Form.Group>
         )}
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm={2}>Lectures</Form.Label>
-          <Col sm={10}>
-            <label className={formData.fileMode === '0'?"btn btn-danger":"btn btn-default"}>
-              <Form.Check
-                inline
-                type="radio"
-                name="fileMode"
-                value="0"
-                checked={formData.fileMode === '0'}
-                onChange={handleInputChange}
-                required
-              />
-              Minimum
-            </label>
-            <label className={formData.fileMode === '1'?"btn btn-warning":"btn btn-default"}>
-              <Form.Check
-                inline
-                type="radio"
-                name="fileMode"
-                value="1"
-                checked={formData.fileMode === '1'}
-                onChange={handleInputChange}
-                required
-              />
-              Essential
-            </label>
-            <label className={formData.fileMode === '2'?"btn btn-success":"btn btn-default"}>
-              <Form.Check
-                inline
-                type="radio"
-                name="fileMode"
-                value="2"
-                checked={formData.fileMode === '2'}
-                onChange={handleInputChange}
-                required
-              />
-              Full
-            </label>
-          </Col>
-        </Form.Group>
+        {formData.generateOption !== 'lab' && (
+          <Form.Group as={Row} className="mb-3">
+            <Form.Label column sm={2}>Lectures</Form.Label>
+            <Col sm={10}>
+              <label className={formData.fileMode === '1'?"btn btn-danger":"btn btn-default"}>
+                <Form.Check
+                  inline
+                  type="radio"
+                  name="fileMode"
+                  value="1"
+                  checked={formData.fileMode === '1'}
+                  onChange={handleInputChange}
+                  required
+                />
+                Minimum
+              </label>
+              <label className={formData.fileMode === '2'?"btn btn-warning":"btn btn-default"}>
+                <Form.Check
+                  inline
+                  type="radio"
+                  name="fileMode"
+                  value="2"
+                  checked={formData.fileMode === '2'}
+                  onChange={handleInputChange}
+                  required
+                />
+                Essential
+              </label>
+              <label className={formData.fileMode === '3'?"btn btn-success":"btn btn-default"}>
+                <Form.Check
+                  inline
+                  type="radio"
+                  name="fileMode"
+                  value="3"
+                  checked={formData.fileMode === '3'}
+                  onChange={handleInputChange}
+                  required
+                />
+                Full
+              </label>
+            </Col>
+          </Form.Group>
+        )}
         <Form.Group as={Row} className="mb-3">
           <Col sm={{ span: 5, offset: 1 }}>
             <Button type="submit" onClick={handleDownload}>Download ics</Button>
@@ -353,7 +361,7 @@ function App() {
         </Form.Group>
       </Form>
       <div class="alert alert-info" role="alert">
-        Latest Update: 24/03/2024 17:47
+        Latest Update: 25/03/2024 02:37
       </div>
       </Col></Row>
     </Container>
