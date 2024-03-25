@@ -243,7 +243,7 @@ function App() {
                 checked={formData.term === 'easter'}
                 onChange={handleInputChange}
                 required
-                disabled={formData.year === '2' && formData.generateOption === 'lab'}
+                disabled={formData.year === '2' && formData.generateOption !== 'lecture'}
               />
               Easter
             </label>
@@ -261,6 +261,7 @@ function App() {
                 checked={formData.generateOption === 'combined'}
                 onChange={handleGenerateOptionChange}
                 required
+                disabled={formData.year === '2' && formData.term === 'easter'}
               />
               Combined
             </label>
