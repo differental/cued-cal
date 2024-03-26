@@ -71,7 +71,12 @@ function App() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    if (name === 'year') {
+      setFormData({ ...formData, [name]: value, generateOption: '' });
+    }
+    else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleGenerateOptionChange = (event) => {
