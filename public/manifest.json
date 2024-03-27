@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "EdCal",
+  "name": "CUED Calendar Assistant",
   "icons": [
     {
       "src": "favicon.ico",
