@@ -34,7 +34,7 @@ function App() {
       icon: "success",
       title: "Yessir",
       text: "Download Successful!",
-      timer: 3000,
+      timer: 2000,
       footer: '<a style="color: #FF0000">Timings are not final and subject to change before term.</a> <br/> <a style="color: #FF0000">Subscribe to webcal to keep them updated.</a>',
       showConfirmButton: false,
       showCloseButton: false,
@@ -42,7 +42,7 @@ function App() {
     }).then(
       setTimeout(() => {
         window.location.href = fileLink;
-      }, 3000)
+      }, 2000)
     );
   };
 
@@ -50,19 +50,26 @@ function App() {
     withReactContent(Swal).fire({
       icon: "warning",
       title: "Disclaimer",
-      text: 'These calendars are NOT definitive . They are provided for convenience only. It is your responsibility to make sure you know when all your lectures are by checking the timetable published by the teaching office, and the online module details.',
+      html: 'Downloaded calendars are optimised versions of official calendars, choose <a style="color:green">Full</a> for EXACT matches.<br/>Official calendars may not always be accurate, consult department PDFs for important schedules.<br/>See below for more details.',
       showConfirmButton: true,
-      confirmButtonText: 'Official Calendar Page',
+      confirmButtonText: 'Official Calendars',
       showCloseButton: true,
+      showCancelButton: true,
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: 'my-button',
+        cancelButton: 'my-button'
+      },
+      cancelButtonText: 'Lecture Timetables',
     }).then((result) => {
       if (result.isConfirmed) {
-        setTimeout(() => {
-          window.location.href = "http://td.eng.cam.ac.uk/tod/public/list_icals.php";
-        }, 0)
+        window.location.href = "http://td.eng.cam.ac.uk/tod/public/list_icals.php";
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        window.location.href = "http://teaching.eng.cam.ac.uk/node/4112";
       }
     });
   };
-
+  
   const [formData, setFormData] = useState({
     year: '1',
     term: 'easter',
@@ -102,7 +109,7 @@ function App() {
     let fileLink = '';
 
     let a = parseInt(formData.labGroup, 10)
-    // Assuming you have a known link to the file
+
     if (formData.generateOption === 'lecture') {
       fileLink = `/ical_new/${encodeURIComponent(formData.year)}_${encodeURIComponent(formData.term)}_lecture_${encodeURIComponent(formData.fileMode)}.ics`;
     }
@@ -112,19 +119,7 @@ function App() {
     else { //lab
       fileLink = `/ical_new/${encodeURIComponent(formData.year)}_${encodeURIComponent(formData.term)}_${encodeURIComponent(a)}_lab.ics`;
     }
-    //const randomNumber = getRandomNumber(1, 4);
-    //console.log(randomNumber)
-    //if (randomNumber >= 2) {
     downloadFile(fileLink);
-    //Success();
-    
-    //}
-    //else {
-    //  Fail();
-    //  setTimeout(() => {
-    //    window.location.href = `#`;
-    //  }, 3000);
-   // }
   };
 
   const handleSubscribe = (event) => {
@@ -155,6 +150,8 @@ function App() {
 
   return (
     <Container className="App">
+      <SpeedInsights/>
+      <Analytics/>
       <Row className="justify-content-md-center"><Col md="auto">
       <h1>CUED Calendar Assistant</h1>
       <div class="alert alert-warning" role="alert">
