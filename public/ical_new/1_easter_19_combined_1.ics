@@ -1,6 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//teaching.eng.cam.ac.uk//CUED Calendars//
+PRODID:-//brianc.xyz//CUED Calendars//EN
 BEGIN:VEVENT
 SUMMARY:Microprocessors (am)
 DTSTART:20240514T100000Z

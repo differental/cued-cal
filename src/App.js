@@ -366,7 +366,7 @@ function App() {
         </Form.Group>
       </Form>
       <div class="alert alert-info" role="alert">
-        Latest Update: 25/04/2024 15:20
+        Latest Update: 25/04/2024 22:24
       </div>
       </Col></Row>
     </Container>

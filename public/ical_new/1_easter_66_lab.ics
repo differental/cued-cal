@@ -1,6 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//teaching.eng.cam.ac.uk//CUED Calendars//
+PRODID:-//brianc.xyz//CUED Calendars//EN
 BEGIN:VEVENT
 SUMMARY:12: Iron-cored transformer
 DTSTART:20240425T100000Z

@@ -1,6 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//teaching.eng.cam.ac.uk//CUED Calendars//
+PRODID:-//brianc.xyz//CUED Calendars//EN
 BEGIN:VEVENT
 SUMMARY:7: Vibration modes
 DTSTART:20240506T080000Z

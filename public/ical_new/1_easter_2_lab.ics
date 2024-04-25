@@ -1,6 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//teaching.eng.cam.ac.uk//CUED Calendars//
+PRODID:-//brianc.xyz//CUED Calendars//EN
 BEGIN:VEVENT
 SUMMARY:Machine Tools Lab (am)
 DTSTART:20240509T100000Z

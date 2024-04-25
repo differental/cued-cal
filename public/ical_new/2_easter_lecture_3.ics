@@ -1,6 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//teaching.eng.cam.ac.uk//CUED Calendars//
+PRODID:-//brianc.xyz//CUED Calendars//EN
 BEGIN:VEVENT
 SUMMARY:2P8/Aerothermal Elective: Design of a Jet Engine
 DTSTART:20240429T080000Z
