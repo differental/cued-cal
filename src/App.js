@@ -13,6 +13,8 @@ import { Analytics } from "@vercel/analytics/react";
 
 function App() {
 
+  const upToDate = true;
+
   useEffect(() => {
     document.title = 'CUED Calendar Assistant';
   }, []);
@@ -30,12 +32,13 @@ function App() {
   };
 
   const downloadFile = (fileLink) => {
+    const timingDisclaimer = !upToDate ? '<a style="color: #FF0000">Timings are not final and subject to change before term.</a> <br/> <a style="color: #FF0000">Subscribe to webcal to keep them updated.</a>' : '<a style="color: #008000">Calendars are up-to-date and likely won\'t change before next term.</a> <br/><a style="color: #008000">Subscribe to webcal to always keep calendars up-to-date.</a>';
     withReactContent(Swal).fire({
       icon: "success",
       title: "Yessir",
       text: "Download Successful!",
       timer: 2000,
-      footer: '<a style="color: #FF0000">Timings are not final and subject to change before term.</a> <br/> <a style="color: #FF0000">Subscribe to webcal to keep them updated.</a>',
+      footer: timingDisclaimer,
       showConfirmButton: false,
       showCloseButton: false,
       timerProgressBar: true
@@ -67,6 +70,17 @@ function App() {
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         window.location.href = "http://teaching.eng.cam.ac.uk/node/4112";
       }
+    });
+  };
+
+  const up_to_date = () => {
+    withReactContent(Swal).fire({
+      icon: "success",
+      title: "Calendars Up-to-date",
+      html: 'Official calendars usually stablise around 1-2 weeks before each term.<br/>This up-to-date notice will appear if calendars remain unchanged during a 3-week period that ends after beginning of term.',
+      showConfirmButton: false,
+      showCloseButton: true,
+      showCancelButton: false
     });
   };
   
@@ -154,6 +168,12 @@ function App() {
       <Analytics/>
       <Row className="justify-content-md-center"><Col md="auto">
       <h1>CUED Calendar Assistant</h1>
+      {upToDate && (
+      <div class="alert alert-success" role="alert">
+        All Calendars are up-to-date.<br/>
+        <a href="#" onClick={up_to_date}>Learn More</a>
+      </div>
+      )}
       <div class="alert alert-warning" role="alert">
         It is your responsibility to check the timetable published by the teaching office.<br/>
         <a href="#" onClick={disclaimer}>Learn More</a>
@@ -366,7 +386,7 @@ function App() {
         </Form.Group>
       </Form>
       <div class="alert alert-info" role="alert">
-        Latest Update: 25/04/2024 22:24
+        Last Ticked: 04/05/2024 13:22
       </div>
       </Col></Row>
     </Container>
