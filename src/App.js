@@ -13,7 +13,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 function App() {
 
-  const upToDate = true;
+  const upToDate = false;
 
   useEffect(() => {
     document.title = 'CUED Calendar Assistant';
@@ -74,10 +74,11 @@ function App() {
   };
 
   const up_to_date = () => {
+    const htmltext = !upToDate ? 'Official calendars usually stablise around 1-2 weeks before each term.<br/>Currently the calendars for next term are either unreleased or changing. Downloading the calendars at this point is highly recommended against.' : 'Official calendars usually stablise around 1-2 weeks before each term.<br/>The green up-to-date notice will appear if calendars remain unchanged during a 3-week period that ends after beginning of term.';
     withReactContent(Swal).fire({
-      icon: "success",
-      title: "Calendars Up-to-date",
-      html: 'Official calendars usually stablise around 1-2 weeks before each term.<br/>This up-to-date notice will appear if calendars remain unchanged during a 3-week period that ends after beginning of term.',
+      icon: !upToDate ? "error" : "success",
+      title: !upToDate ? "Calendars Not Up-to-date" : "Calendars Up-to-date",
+      html: htmltext,
       showConfirmButton: false,
       showCloseButton: true,
       showCancelButton: false
@@ -171,6 +172,12 @@ function App() {
       {upToDate && (
       <div class="alert alert-success" role="alert">
         All Calendars are up-to-date.<br/>
+        <a href="#" onClick={up_to_date}>Learn More</a>
+      </div>
+      )}
+      {!upToDate && (
+      <div class="alert alert-danger" role="alert">
+        Calendars are not yet finalised or unavailable.<br/>
         <a href="#" onClick={up_to_date}>Learn More</a>
       </div>
       )}
@@ -386,7 +393,7 @@ function App() {
         </Form.Group>
       </Form>
       <div class="alert alert-info" role="alert">
-        Last Ticked: 10/05/2024 12:37
+        Last Ticked: 22/06/2024 18:18
       </div>
       </Col></Row>
     </Container>
