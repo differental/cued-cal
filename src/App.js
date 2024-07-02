@@ -31,22 +31,36 @@ function App() {
     });
   };
 
+  //const downloadFile = (fileLink) => {
+  //  const timingDisclaimer = !upToDate ? '<a style="color: #FF0000">Timings are not final and subject to change before term.</a> <br/> <a style="color: #FF0000">Subscribe to webcal to keep them updated.</a>' : '<a style="color: #008000">Calendars are up-to-date and likely won\'t change before next term.</a> <br/><a style="color: #008000">Subscribe to webcal to always keep calendars up-to-date.</a>';
+    //withReactContent(Swal).fire({
+     // icon: "success",
+      //title: "Yessir",
+      //text: "Download Successful!",
+      //timer: 2000,
+      //footer: timingDisclaimer,
+      //showConfirmButton: false,
+      //showCloseButton: false,
+      //timerProgressBar: true
+    //}).then(
+      //setTimeout(() => {
+        //window.location.href = fileLink;
+      //}, 2000)
+    //);
+  //};
+
   const downloadFile = (fileLink) => {
     const timingDisclaimer = !upToDate ? '<a style="color: #FF0000">Timings are not final and subject to change before term.</a> <br/> <a style="color: #FF0000">Subscribe to webcal to keep them updated.</a>' : '<a style="color: #008000">Calendars are up-to-date and likely won\'t change before next term.</a> <br/><a style="color: #008000">Subscribe to webcal to always keep calendars up-to-date.</a>';
     withReactContent(Swal).fire({
-      icon: "success",
-      title: "Yessir",
-      text: "Download Successful!",
+      icon: "error",
+      title: "Not Available",
+      text: "Calendar Not Yet Available",
       timer: 2000,
       footer: timingDisclaimer,
       showConfirmButton: false,
       showCloseButton: false,
       timerProgressBar: true
-    }).then(
-      setTimeout(() => {
-        window.location.href = fileLink;
-      }, 2000)
-    );
+    });
   };
 
   const disclaimer = () => {
