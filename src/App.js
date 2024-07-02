@@ -407,7 +407,7 @@ function App() {
         </Form.Group>
       </Form>
       <div class="alert alert-info" role="alert">
-        Last Ticked: 22/06/2024 18:18
+        Last Ticked: 02/07/2024 19:39
       </div>
       </Col></Row>
     </Container>
