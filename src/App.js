@@ -100,8 +100,8 @@ function App() {
   };
   
   const [formData, setFormData] = useState({
-    year: '1',
-    term: 'easter',
+    year: '',
+    term: 'mich',
     generateOption: '',
     labGroup: '',
     fileMode: '2'
